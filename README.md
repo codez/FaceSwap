@@ -22,7 +22,6 @@ python main.py --src imgs/test6.jpg --dst imgs/test7.jpg --out results/output6_7
 ## Install
 ### Requirements
 * `pip install -r requirements.txt`
-* OpenCV 3: `conda install opencv` (If you have conda/anaconda)
 
 Note: See [requirements.txt](requirements.txt) for more details.
 ### Git Clone

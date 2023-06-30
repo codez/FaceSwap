@@ -1,3 +1,5 @@
+Cmake >= 3.26.0
 dlib >= 19.9.0
 numpy >= 1.13.1
 scipy >= 0.18.0
+opencv-python-headless >= 4.7.0
