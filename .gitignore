@@ -37,3 +37,7 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+# generated images
+results/
+imgs/
