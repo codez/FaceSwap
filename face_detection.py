@@ -2,6 +2,8 @@ import cv2
 import dlib
 import numpy as np
 
+DefaultRadius = 10
+
 ## Face detection
 def face_detection(img,upsample_times=1):
     # Ask the detector to find the bounding boxes of each face. The 1 in the
@@ -26,7 +28,7 @@ def face_points_detection(img, bbox:dlib.rectangle):
     # return the array of (x, y)-coordinates
     return coords
 
-def select_face(im, r=10, choose=True):
+def select_face(im, r=DefaultRadius, choose=True):
     faces = face_detection(im)
 
     if len(faces) == 0:
@@ -70,11 +72,11 @@ def select_face(im, r=10, choose=True):
     return points - np.asarray([[x, y]]), (x, y, w, h), im[y:y + h, x:x + w]
 
 
-def select_all_faces(im, r=10):
+def select_all_faces(im, r=DefaultRadius):
     faces = face_detection(im)
 
     if len(faces) == 0:
-        return None
+        return {}
 
     faceBoxes = {k : {"points" : None,
                       "shape" : None,
