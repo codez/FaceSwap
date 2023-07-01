@@ -10,14 +10,10 @@ from face_swap import face_swap
 HEIGHT = 3
 
 def swap_two_photos(args):
-    # Read images
     src_img = cv2.imread(args.src)
     dst_img = cv2.imread(args.dst)
 
-    # Select src face
     src_face = select_largest_faceBox(select_matching_faces(src_img, args.minsize))
-
-    # Select dst face
     dst_face = select_largest_faceBox(select_matching_faces(dst_img, args.minsize))
 
     output = face_swap(src_face["face"], dst_face["face"], src_face["points"],
@@ -26,15 +22,11 @@ def swap_two_photos(args):
 
     write_output(output, args)
 
-    ##For debug
     if args.debug_window:
         show_images(dst_img, output)
 
 def swap_one_photo(args):
-    # Read images
     src_img = cv2.imread(args.src)
-
-    # Select src faces
     src_faceBoxes = select_matching_faces(src_img, args.minsize)
 
     output = src_img
@@ -48,7 +40,6 @@ def swap_one_photo(args):
 
     write_output(output, args)
 
-    ##For debug
     if args.debug_window:
         show_images(src_img, output)
 
@@ -71,11 +62,8 @@ def select_matching_faces(img, minsize, abort = True):
     return faceBoxes
 
 def count_faces(args):
-    # Read image
     src_img = cv2.imread(args.src)
-
     faces = select_matching_faces(src_img, args.minsize, abort = False)
-
     print(len(faces))
 
 def outline_face(output, dst_face):
@@ -109,7 +97,7 @@ def shuffle_list(count):
             return shuffle_list(count)
     return result
 
-if __name__ == '__main__':
+def parse_args():
     parser = argparse.ArgumentParser(description='FaceSwapApp')
     parser.add_argument('--src', required=True, help='Path for source image')
     parser.add_argument('--dst', required=False, help='Path for target image')
@@ -119,7 +107,10 @@ if __name__ == '__main__':
     parser.add_argument('--correct_color', default=False, action='store_true', help='Correct color')
     parser.add_argument('--minsize', required=False, type=int, help='Give the minimum height required for a face')
     parser.add_argument('--debug_window', default=False, action='store_true', help='Show debug window')
-    args = parser.parse_args()
+    return parser.parse_args()
+
+if __name__ == '__main__':
+    args = parse_args()
 
     if args.count:
         count_faces(args)

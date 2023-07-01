@@ -8,7 +8,7 @@ import sys
 import time
 import urllib.request
 
-ORIGNALS_DIR = ''
+ORIGINALS_DIR = ''
 SWAPPED_DIR = ''
 NO_FACES_DIR = ''
 MINSIZE = None
@@ -88,7 +88,7 @@ def mkdir_p(folder):
     if not os.path.exists(folder):
         os.makedirs(folder)
 
-if __name__ == '__main__':
+def parse_args():
     parser = argparse.ArgumentParser(description='FaceSwapProcess')
     parser.add_argument('--url', required=True, help='URL where to get images')
     parser.add_argument('--interval', required=False, type=int, default=15, help='Polling interval in seconds')
@@ -96,8 +96,17 @@ if __name__ == '__main__':
     parser.add_argument('--originals',required=False,  default='originals', help='Directory to store original files')
     parser.add_argument('--swapped', required=False, default='swapped', help='Directory to store files with swapped faces')
     parser.add_argument('--no_faces', required=False, default='none', help='Directory to store files without faces')
-    parser.add_argument('--debug', required=False, default=False, action='store_true' help='Print more debugging infos')
-    args = parser.parse_args()
+    parser.add_argument('--debug', required=False, default=False, action='store_true', help='Print more debugging infos')
+    return parser.parse_args()
+
+def setup_dirs():
+    mkdir_p(ORIGINALS_DIR)
+    mkdir_p(SWAPPED_DIR)
+    mkdir_p(NO_FACES_DIR)
+
+
+if __name__ == '__main__':
+    args = parse_args()
 
     ORIGINALS_DIR = args.originals
     SWAPPED_DIR = args.swapped
@@ -105,9 +114,7 @@ if __name__ == '__main__':
     MINSIZE = args.minsize
     DEBUG = args.debug
 
-    mkdir_p(ORIGINALS_DIR)
-    mkdir_p(SWAPPED_DIR)
-    mkdir_p(NO_FACES_DIR)
+    setup_dirs()
 
     try:
         while True:
