@@ -41,6 +41,7 @@ nosetests.xml
 # generated images
 results/
 imgs/
+source/
 originals/
 none/
 swapped/
