@@ -58,7 +58,10 @@ def process_warp(src_img, result_img, tri_affines, dst_points, delaunay):
         out_coords = np.dot(tri_affines[simplex_index],
                             np.vstack((coords.T, np.ones(num_coords))))
         x, y = coords.T
-        result_img[y, x] = bilinear_interpolate(src_img, out_coords)
+        try:
+            result_img[y, x] = bilinear_interpolate(src_img, out_coords)
+        except IndexError:
+            pass
 
     return None
 
